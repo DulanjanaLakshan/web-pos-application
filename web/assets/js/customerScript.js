@@ -1,16 +1,40 @@
 $("#Customer_a").click(function () {
     loadAllCustomer();
 })
+$("#btnCustomerSearch").click(function () {
 
+})
 $("#btnSaveCustomer").click(function () {
-    let date = $("#customerForm").serialize();
+    var data = $("#customerForm").serialize();
     $.ajax({
         url: "customer",
         method: "POST",
-        date: date,
+        data: data,
         success: function (resp) {
             alert(resp);
             console.log(resp);
+            loadAllCustomer();
+        }
+    })
+})
+$("#btnUpdateCustomer").click(function () {
+    let fromData = $("#customerForm").serialize();
+    $.ajax({
+        url: "customer?" + fromData,
+        method: "PUT",
+        success: function (res) {
+            alert(res);
+            loadAllCustomer();
+        }
+    })
+})
+$("#btnDeleteCustomer").click(function () {
+    let customerID = $("#txtCusID").val();
+    $.ajax({
+        url: "customer?txtCusID=" + customerID,
+        method: "DELETE",
+        success: function (res) {
+            alert(res);
             loadAllCustomer();
         }
     })
@@ -24,7 +48,7 @@ function loadAllCustomer() {
         success: function (resp) {
             for (const customer of resp) {
                 let row = `<tr><td>${customer.id}</td><td>${customer.name}</td><td>${customer.address}</td><td>${customer.salary}</td></tr>`;
-                $("#tblCustomerJson").append(row);
+                $("#customerTable").append(row);
             }
             bindClickEvents();
         }
