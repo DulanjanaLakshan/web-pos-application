@@ -2,6 +2,20 @@ $("#Customer_a").click(function () {
     loadAllCustomer();
 })
 
+$("#btnSaveCustomer").click(function () {
+    let date = $("#customerForm").serialize();
+    $.ajax({
+        url: "customer",
+        method: "POST",
+        date: date,
+        success: function (resp) {
+            alert(resp);
+            console.log(resp);
+            loadAllCustomer();
+        }
+    })
+})
+
 function loadAllCustomer() {
     $("#customerTable").empty();
     $.ajax({
