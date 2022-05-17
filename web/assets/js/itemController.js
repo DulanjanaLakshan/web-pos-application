@@ -6,9 +6,7 @@
 $("#Item_a").click(function () {
     loadAllItem();
 })
-$("#btnItemSearch").click(function () {
-    loadAllItem();
-})
+
 function loadAllItem() {
     $("#ItemTable").empty();
     $.ajax({
@@ -24,3 +22,40 @@ function loadAllItem() {
     })
 }
 
+$("#btnSaveItem").click(function () {
+    let data = $("#itemForm").serialize();
+    alert("meka wada");
+    $.ajax({
+        url: "item",
+        method: "POST",
+        data: data,
+        success: function (resp) {
+            alert(resp);
+            console.log(resp);
+            loadAllItem();
+        }
+    })
+})
+$("#btnUpdateItem").click(function () {
+    let fromData = $("#itemForm").serialize();
+    $.ajax({
+        url: "item?" + fromData,
+        method: "PUT",
+        success: function (res) {
+            alert(res);
+            loadAllItem();
+        }
+    })
+})
+
+$("#btnItemDelete").click(function () {
+    let itemID = $("#txtItemID").val();
+    $.ajax({
+        url:"item?txtItemID="+itemID,
+        method:"DELETE",
+        success:function (res) {
+            alert(res);
+            loadAllItem();
+        }
+    })
+})

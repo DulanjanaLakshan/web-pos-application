@@ -1,13 +1,13 @@
 package dao;
 
-import entity.Customer;
+import dto.ItemDTO;
 
 import javax.json.JsonArray;
 import java.sql.SQLException;
 
 public interface CrudDAO<T,ID> extends SuperDAO{
     JsonArray getAll() throws SQLException, ClassNotFoundException;
-    boolean add(Customer t) throws SQLException, ClassNotFoundException;
-    boolean update(Customer t) throws SQLException, ClassNotFoundException;
+    boolean add(T t) throws SQLException, ClassNotFoundException;
+    boolean update(T t) throws SQLException, ClassNotFoundException;
     boolean delete(ID id) throws SQLException, ClassNotFoundException;
 }

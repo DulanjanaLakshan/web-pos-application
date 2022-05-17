@@ -2,7 +2,7 @@ package dao.custom.impl;
 
 import dao.CrudUtil;
 import dao.custom.itemDAO;
-import entity.Customer;
+import dto.ItemDTO;
 import entity.Item;
 
 import javax.json.Json;
@@ -21,7 +21,7 @@ public class itemDAOImpl implements itemDAO {
         JsonObjectBuilder customerJson = Json.createObjectBuilder();
 
         while (rst.next()) {
-            item=new Item(rst.getString(1),rst.getString(2),rst.getString(3),rst.getInt(4),rst.getBigDecimal(5));
+            item=new Item(rst.getString(1),rst.getString(2),rst.getString(3),rst.getInt(4),rst.getDouble(5));
             customerJson.add("id", item.getId());
             customerJson.add("name", item.getName());
             customerJson.add("description", item.getDescription());
@@ -33,17 +33,18 @@ public class itemDAOImpl implements itemDAO {
     }
 
     @Override
-    public boolean add(Customer t) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean add(Item dto) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("INSERT INTO item VALUES(?,?,?,?,?)", dto.getId(),dto.getName(),dto.getDescription(),dto.getQty(),dto.getPrice());
     }
 
     @Override
-    public boolean update(Customer t) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean update(Item dto) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("UPDATE item SET name=?, description=?, qty=?, price=? WHERE id=?", dto.getName(), dto.getDescription(), dto.getQty(), dto.getPrice(),dto.getId());
     }
 
     @Override
-    public boolean delete(String s) throws SQLException, ClassNotFoundException {
-        return false;
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("DELETE FROM item WHERE id=?", id);
     }
+
 }

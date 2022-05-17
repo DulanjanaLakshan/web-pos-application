@@ -2,6 +2,8 @@ package dao.custom.impl;
 
 import dao.CrudUtil;
 import dao.custom.customerDAO;
+import dto.CustomerDTO;
+import dto.ItemDTO;
 import entity.Customer;
 
 import javax.json.Json;

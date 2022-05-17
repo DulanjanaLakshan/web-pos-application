@@ -7,12 +7,12 @@ public class ItemDTO {
     String name;
     String description;
     int qty;
-    BigDecimal price;
+    double price;
 
     public ItemDTO() {
     }
 
-    public ItemDTO(String id, String name, String description, int qty, BigDecimal price) {
+    public ItemDTO(String id, String name, String description, int qty, double price) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -52,11 +52,11 @@ public class ItemDTO {
         this.qty = qty;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

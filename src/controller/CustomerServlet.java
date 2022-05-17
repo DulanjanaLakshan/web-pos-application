@@ -23,11 +23,9 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("get ekanam wada");
         try {
             resp.setContentType("application/json");
             resp.getWriter().print(customerDAO.getAll());
-            System.out.println(customerDAO.getAll());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
