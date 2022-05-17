@@ -1,9 +1,7 @@
 $("#Customer_a").click(function () {
     loadAllCustomer();
 })
-$("#btnCustomerSearch").click(function () {
 
-})
 $("#btnSaveCustomer").click(function () {
     var data = $("#customerForm").serialize();
     $.ajax({
@@ -17,6 +15,7 @@ $("#btnSaveCustomer").click(function () {
         }
     })
 })
+
 $("#btnUpdateCustomer").click(function () {
     let fromData = $("#customerForm").serialize();
     $.ajax({
@@ -28,18 +27,20 @@ $("#btnUpdateCustomer").click(function () {
         }
     })
 })
+
 $("#btnDeleteCustomer").click(function () {
     let customerID = $("#txtCusID").val();
     $.ajax({
-        url: "customer?txtCusID=" + customerID,
-        method: "DELETE",
-        success: function (res) {
+        url:"customer?txtCusID="+customerID,
+        method:"DELETE",
+        success:function (res) {
             alert(res);
             loadAllCustomer();
         }
     })
 })
 
+/*---------------------------------------------------------------------------------------------------------*/
 function loadAllCustomer() {
     $("#customerTable").empty();
     $.ajax({

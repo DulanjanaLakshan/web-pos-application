@@ -2,7 +2,6 @@ package dao.custom.impl;
 
 import dao.CrudUtil;
 import dao.custom.customerDAO;
-import dto.CustomerDTO;
 import entity.Customer;
 
 import javax.json.Json;
@@ -33,17 +32,17 @@ public class customerDAOImpl implements customerDAO {
     }
 
     @Override
-    public boolean add(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean add(Customer dto) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate("INSERT INTO customer VALUES(?,?,?,?)", dto.getId(), dto.getName(), dto.getAddress(), dto.getSalary());
     }
 
     @Override
-    public boolean update(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+    public boolean update(Customer dto) throws SQLException, ClassNotFoundException {
         return CrudUtil.executeUpdate("UPDATE Customer SET name=?, address=?, salary=? WHERE id=?", dto.getName(), dto.getAddress(), dto.getSalary(), dto.getId());
     }
 
     @Override
-    public boolean delete(String s) {
-        return false;
+    public boolean delete(String id) throws SQLException, ClassNotFoundException {
+        return CrudUtil.executeUpdate("DELETE FROM Customer WHERE id=?", id);
     }
 }

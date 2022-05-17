@@ -34,7 +34,7 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        CustomerDTO customer = new CustomerDTO(req.getParameter("customerId"), req.getParameter("customerName"), req.getParameter("customerAddress"), Double.parseDouble(req.getParameter("customerSalary")));
+        Customer customer = new Customer(req.getParameter("customerId"), req.getParameter("customerName"), req.getParameter("customerAddress"), Double.parseDouble(req.getParameter("customerSalary")));
         try {
             boolean b = customerDAO.add(customer);
             if (b){
@@ -50,25 +50,35 @@ public class CustomerServlet extends HttpServlet {
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Customer customer = new Customer(req.getParameter("customerId"), req.getParameter("customerName"), req.getParameter("customerAddress"), Double.parseDouble(req.getParameter("customerSalary")));
+
         try {
-            JsonObject customerJson = Json.createReader(req.getReader()).readObject();
-            CustomerDTO customer = new CustomerDTO(customerJson.getString("id"), customerJson.getString("name"), customerJson.getString("address"), Double.parseDouble(customerJson.getString("salary")));
-
-            if (customerDAO.update(customer)) {
-
-            } else {
-
+            boolean b = customerDAO.update(customer);
+            PrintWriter writer = resp.getWriter();
+            if (b){
+                writer.write("Customer Updated...");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        try {
+            boolean b = customerDAO.delete( req.getParameter("txtCusID"));
+            PrintWriter writer = resp.getWriter();
+            if (b){
+                writer.write("Customer Deleted...");
+            }else {
+                writer.write("Customer Not Deleted...");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
