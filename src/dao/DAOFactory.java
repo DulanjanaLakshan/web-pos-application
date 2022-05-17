@@ -1,6 +1,7 @@
 package dao;
 
 import dao.custom.impl.customerDAOImpl;
+import dao.custom.impl.itemDAOImpl;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -16,7 +17,7 @@ public class DAOFactory {
     public SuperDAO getDAO(DAOTypes types) {
         switch (types) {
             case ITEM:
-                return null;
+                return new itemDAOImpl();
             case ORDER:
                 return null;
             case CUSTOMER:
